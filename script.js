@@ -1,34 +1,32 @@
-var SpeechRecognition = window.webkitSpeechRecognition;
-
-// var myLang = mySpeechRecognition.lang;
-
-var recognition = new SpeechRecognition();
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
 recognition.lang = 'hi-IN';
 
-var Textbox = $("#textarea");
-var instructions = $("#instructions");
+const Textbox = document.querySelector("#textarea");
+const instructions = document.querySelector("#instructions");
 
-var Content = "";
+let Content = "";
 
 recognition.continuous = true;
 
-recognition.onresult = function (event) {
-  var current = event.resultIndex;
-
-  var transcript = event.results[current][0].transcript;
-
+recognition.onresult = (event) => {
+  const current = event.resultIndex;
+  const transcript = event.results[current][0].transcript;
   Content += transcript;
-  Textbox.val(Content);
+  Textbox.value = Content;
 };
 
-$("#start").on("click", function (e) {
-  if ($(this).text() == "Click here to Stop Recording") {
-    $(this).html("Click here to Start Recording");
-    $("#instructions").html("");
+document.querySelector("#start").addEventListener("click", (e) => {
+  const startButton = e.target;
+
+  if (startButton.textContent === "Click here to Stop Recording") {
+    startButton.textContent = "Click here to Start Recording";
+    instructions.textContent = "";
     recognition.stop();
   } else {
-    $(this).html("Click here to Stop Recording");
-    $("#instructions").html("Try Speaking, Voice Recognition is On, Contents will be displayed below");
+    startButton.textContent = "Click here to Stop Recording";
+    instructions.textContent = "Try Speaking, Voice Recognition is On, Contents will be displayed below";
+
     if (Content.length) {
       Content += " ";
     }
@@ -36,6 +34,6 @@ $("#start").on("click", function (e) {
   }
 });
 
-Textbox.on("input", function () {
-  Content = $(this).val();
+Textbox.addEventListener("input", () => {
+  Content = Textbox.value;
 });
