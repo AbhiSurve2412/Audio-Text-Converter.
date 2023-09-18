@@ -1,16 +1,19 @@
 h1 {
     font-family: 'Tilt Prism', cursive;
-    color:white;
+    color: white;
 }
-button{
+
+button {
     font-family: 'Source Code Pro', monospace;
-    color:white;
+    color: white;
     background-color: rgb(82, 3, 3);
 }
-body{
-  
-    background-image:url("textimage.jpg")
+
+body {
+    background-image: url("textimage.jpg");
 }
-.textarea{
-    background: url("textimage.jpg");
+
+/* Adjust the appearance of the textarea */
+textarea {
+    background-color: white;
 }
