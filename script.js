@@ -1,5 +1,4 @@
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 recognition.lang = 'hi-IN';
 
 const Textbox = document.querySelector("#textarea");
@@ -16,17 +15,14 @@ recognition.onresult = (event) => {
   Textbox.value = Content;
 };
 
-document.querySelector("#start").addEventListener("click", (e) => {
-  const startButton = e.target;
-
-  if (startButton.textContent === "Click here to Stop Recording") {
-    startButton.textContent = "Click here to Start Recording";
+document.querySelector("#start").addEventListener("click", () => {
+  if (document.querySelector("#start").textContent === "Click here to Stop Recording") {
+    document.querySelector("#start").textContent = "Click here to Start Recording";
     instructions.textContent = "";
     recognition.stop();
   } else {
-    startButton.textContent = "Click here to Stop Recording";
+    document.querySelector("#start").textContent = "Click here to Stop Recording";
     instructions.textContent = "Try Speaking, Voice Recognition is On, Contents will be displayed below";
-
     if (Content.length) {
       Content += " ";
     }
